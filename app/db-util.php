@@ -67,11 +67,28 @@ class pdo_dblib_mssql {
 	
 	public function connect() {
 		try {
-			$this->db = new PDO ("sqlsrv:Server=$this->hostname,$this->port;Database=$this->dbname", "$this->username", "$this->pwd");
+			$this->db = new PDO ($this->getConnectionString(), $this->username, $this->pwd);
 			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		} catch (PDOException $e) {
 			echo "Failed to get DB handle: " . $e->getMessage() . "\n";
 		}
+	}
+
+	public function getConnectionString() {
+		$driver = $GLOBALS['db_driver'];
+		$connectionString = '';
+
+		// TODO: add support for additional db drivers?
+		switch ($driver) {
+			case 'mysql':
+				$connectionString = "mysql:host=$this->hostname;dbname=$this->dbname";
+				break;
+			default: // defaults to MS SQL Server
+				$connectionString = "sqlsrv:Server=$this->hostname,$this->port;Database=$this->dbname";
+				break;
+		}
+
+		return $connectionString;
 	}
 	
 	public function executeStatement($query, $values) {

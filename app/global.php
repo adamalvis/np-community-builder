@@ -4,9 +4,17 @@
 // - Form POSTS to this page
 //////////////////////
 
+// setup autoloading
+require __DIR__ . '/../vendor/autoload.php';
+
 	// Error display
-	error_reporting(E_ALL);
+
+error_reporting(E_ALL);
 	ini_set('display_errors', 1);
+
+	// Load environment variables
+	$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..//');
+	$dotenv->load();
 
 	////////////////////////////////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////////////////////////////////
@@ -31,12 +39,13 @@
 	$GLOBALS['protocol'] = "https";
 	$GLOBALS['prod_domain'] = "xxx";
 	$GLOBALS['qa_domain'] = "zzz";
-	$GLOBALS['dev_domain'] = "bgcrc-signin-test.azurewebsites.net";
-	$GLOBALS['db_hostname']= "bgcrc-signin-db.database.windows.net";	
-	$GLOBALS['db_port'] = "1433";	
-	$GLOBALS['db_name'] = getenv('DB_NAME');
-	$GLOBALS['db_user'] = getenv('DB_USER');
-	$GLOBALS['db_password'] = getenv('DB_PASSWORD');
+	$GLOBALS['dev_domain'] = $_SERVER['DEV_DOMAIN'];
+	$GLOBALS['db_driver'] = $_SERVER['DB_DRIVER'];
+	$GLOBALS['db_hostname'] = $_SERVER['DB_HOSTNAME'];	
+	$GLOBALS['db_port'] = $_SERVER['DB_PORT'];	
+	$GLOBALS['db_name'] = $_SERVER['DB_NAME'];
+	$GLOBALS['db_user'] = $_SERVER['DB_USER'];
+	$GLOBALS['db_password'] = $_SERVER['DB_PASSWORD'];
 
 	// Start the session
 	session_start();
