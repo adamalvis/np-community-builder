@@ -36,7 +36,7 @@ error_reporting(E_ALL);
 	$GLOBALS['sendgrid_api_key'] = getenv('SEND_GRID_KEY');
 
 	// Environments
-	$GLOBALS['protocol'] = "https";
+	$GLOBALS['protocol'] = $_SERVER['PROTOCOL'];
 	$GLOBALS['prod_domain'] = "xxx";
 	$GLOBALS['qa_domain'] = "zzz";
 	$GLOBALS['dev_domain'] = $_SERVER['DEV_DOMAIN'];
@@ -73,16 +73,16 @@ error_reporting(E_ALL);
 	$sql_date_format = "Y-m-d g:i:s"; // 2016-10-13 07:00:00
 	// Variables
 	$root_dir = "";
-	$dashboard_url = "https://".$GLOBALS['current_domain'] . $root_dir . "/pages/dashboard.php";
-	$login_url = "https://".$GLOBALS['current_domain'] . $root_dir . "/pages/login.php";
-	$logout_url = "https://".$GLOBALS['current_domain'] . $root_dir . "/pages/logout.php";
-	$signout_url = "https://".$GLOBALS['current_domain'] . $root_dir . "/pages/sign-out.php";
-	$current_url = "https://".$GLOBALS['current_domain'] . $root_dir . $_SERVER['REQUEST_URI'];
-	$referring_url = "https://".$GLOBALS['current_domain'] . $root_dir . "/index.php";
+	$dashboard_url = $GLOBALS['protocol'] . "://".$GLOBALS['current_domain'] . $root_dir . "/pages/dashboard.php";
+	$login_url = $GLOBALS['protocol'] . "://".$GLOBALS['current_domain'] . $root_dir . "/pages/login.php";
+	$logout_url = $GLOBALS['protocol'] . "://".$GLOBALS['current_domain'] . $root_dir . "/pages/logout.php";
+	$signout_url = $GLOBALS['protocol'] . "://".$GLOBALS['current_domain'] . $root_dir . "/pages/sign-out.php";
+	$current_url = $GLOBALS['protocol'] . "://".$GLOBALS['current_domain'] . $root_dir . $_SERVER['REQUEST_URI'];
+	$referring_url = $GLOBALS['protocol'] . "://".$GLOBALS['current_domain'] . $root_dir . "/index.php";
 	if (isset($_SERVER['HTTP_REFERER'])) {
 		$referring_url = $_SERVER['HTTP_REFERER'];
 	}
-	$reset_url = "https://".$GLOBALS['current_domain'] . $root_dir . "/pages/reset.php";
+	$reset_url = $GLOBALS['protocol'] . "://".$GLOBALS['current_domain'] . $root_dir . "/pages/reset.php";
 
 	// Global Functions
 	function calculateHours($in_time, $out_time) {			
